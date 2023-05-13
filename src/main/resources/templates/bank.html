@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title></title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <style>
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+.header_bar {
+    position: top;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  background-color: blue;
+    text-align: center;
+    }
+
+.footer_bar {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: blue;
+   text-align: center;
+}
+
+  input#bankName{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#ifsc{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#branch{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#swift{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+    </style>
+  <div th:replace="fragments/navbar :: navbar_header"></div>
+  <div th:replace="fragments/navbar :: navbar_menu"></div>
+  <div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+  </div>
+</head>
+<body style="background-color:Blonde;">
+<div class="container">
+  <br>
+  <br>
+  <h4 class = "text-middle"> <font color="#000080 ">
+    <b>Create Bank</b> </font></h4>
+  <hr color="blue">
+  <form th:action="@{/bank}" th:object="${bank}" method="POST">
+    <div class="row auto-align">
+      <div class="col">
+        <label> Bank Name</label>
+        <input
+                type="text"
+                name="bankName"
+                id="bankName"
+                th:field="*{bankName}"
+                class="form-control"
+        />
+      </div>
+      <div class="col">
+        <label> Bank IFSC Code</label>
+        <input
+                type="text"
+                name="ifsc"
+                id="ifsc"
+                th:field="*{ifsc}"
+                class="form-control"
+        />
+      </div>
+      <div class="col">
+        <label> Swift Code</label>
+        <input
+                type="text"
+                name="swift"
+                id="swift"
+                th:field="*{swift}"
+                class="form-control"
+        />
+      </div>
+      <div class="col">
+        <label> Branch Name</label>
+        <input
+                type="text"
+                name="branch"
+                id="branch"
+                th:field="*{branch}"
+                class="form-control"
+        />
+      </div>
+    </div>
+    <br>
+    <div class="box-footer">
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+<div th:replace="fragments/navbar :: navbar_footer"></div>
+</body>
+</html>

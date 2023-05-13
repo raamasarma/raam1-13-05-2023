@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title></title>
+    <style>
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+    </style>
+    <div th:replace="fragments/navbar :: navbar_html"></div>
+    <div class="container">
+        <div th:replace="fragments/message :: message_html"></div>
+    </div>
+</head>
+<body style="background-color:Blonde;">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Create Purchase Order </h1>
+            <div class="card-body">
+                <form th:action="@{/purchase}" th:object="${purchase}" method="POST">
+                    <div class="form-group">
+                        <div class="col-2">
+                            <label for="recDate">Date</label>
+                            <input id="recDate" name="recDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="col">
+                            <label for="supplierName">supplierName</label>
+                            <select id="supplierName" class="form-control" name="supplierName">
+                                <option th:each="i : ${supplier}" th:value="${i.supplierName}"><span th:text="${i.supplierName}"></span>
+                            </select>
+                        </div>
+                        <label> Quantity</label>
+                        <input
+                                type="text"
+                                name="quantity"
+                                th:field="*{quantity}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Fat</label>
+                        <input
+                                type="text"
+                                name="fatP"
+                                th:field="*{fatP}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label> Snf </label>
+                        <input
+                                type="text"
+                                name="snfP"
+                                th:field="*{snfP}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label> TsRate </label>
+                        <input
+                                type="text"
+                                name="tsRate"
+                                th:field="*{tsRate}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label> LtrRate </label>
+                        <input
+                                type="text"
+                                name="ltrRate"
+                                th:field="*{ltrRate}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="col">
+                        <label for="milkType">Milk Type</label>
+                        <select id="milkType" class="form-control" name="milkType" >
+                            <option>CM</option>
+                            <option>BM</option>
+                        </select>
+                    </div>
+                    <div class="box-footer">
+                        <button id="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+$('#submit').click(function() {
+var recDate =$("#recDate").val();
+alert(recDate);
+var supplier =$("#supplierName").val();
+    alert(supplier);
+if(date==null||date==""){
+alert("please select date!!!");
+return;
+}
+$.ajax({
+'async': false,
+ type: 'POST',
+url: '/purchase',
+        data: JSON.stringify(purchaseOrder),
+        data: {
+                "supplier":supplier,
+                "recDate": recDate
+            },
+success: function(data) {
+alert("Data Saved Successfully !!!");
+window.location.replace ("/purchase");
+}
+});
+});
+</script>
+</html>

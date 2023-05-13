@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <style>
+#datePicker{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  input#qty{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+
+input#fat{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+
+input#snf{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+
+input#ltrRate{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #milkType{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+input#invoiceNo{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #supplier{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+   #VehileNo{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  </style>
+
+
+</head>
+<body style="background-color: #fff;">
+<div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+</div>
+<div class="container">
+    <br>
+    <h4><font color="#000080 ">
+        <b>Purchases Order</b>
+    </font></h4>
+    <hr>
+
+    <form action="@{/purchaseOrder}" th:object="${purchasesOrder}" method="post">
+        <div class="row auto-align">
+            <div class="col">
+                <label for="supplier">Supplier</label>
+                <select id="supplier" class="form-control" name="supplier" autocomplete="on">
+
+                    <option> --- Select Supplier ---</option>
+                    <option th:each="i : ${supplier}" th:value="${i.supplier}"><span th:text="${i.supplier}"></span></option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="VehileNo">VehicleNo</label>
+                <select id="VehileNo" class="form-control" name="VehileNo" autocomplete="on">
+
+                    <option> --- Select Vehicle Number ---</option>
+                    <option th:each="i : ${VehileNo}" th:value="${i.VehileNo}"><span th:text="${i.VehileNo}"></span></option>
+                </select>
+            </div>
+
+            <div class="col-2">
+                <label for="datePicker">Date</label>
+                <input id="datePicker" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+            </div>
+
+        </div>
+
+
+        <br>
+        <div class="row">
+            <div class="col-2">
+                <label for="qty">Quantity in KGs</label>
+
+                <input type="text" class="form-control" id="qty" >
+
+            </div>
+            <div class="col">
+                <label for="fat">Fat</label>
+                <input type="text" class="form-control" id="fat"  min="1" max="5" onchange="setOneNumberDecimal" value="0.0">
+            </div>
+            <div class="col">
+                <label for="snf">Snf</label>
+                <input type="text" class="form-control" id="snf" autocomplete="off"  onchange="setTwoNumberDecimal" min="0" max="10" step="2.5" value="0.00">
+            </div>
+            <div class="col">
+                <label for="ltrRate">Ltr Rate</label>
+                <input type="text" class="form-control" id="ltrRate" maxlength="2" pattern="\d{2}" autocomplete="off" >
+            </div>
+            <div class="col">
+                <label for="milk_type">Milk Type</label>
+                <select id="milk_type" class="form-control" name="milk_type" >
+
+                    <option>CM</option>
+                    <option>BM</option>
+
+                </select>
+            </div>
+            <div class="col">
+                <label for="invoiceNo">Invice No</label>
+                <input type="text" class="form-control" id="invoiceNo" name="invoiceNo" >
+            </div>
+            <br>
+            <br><br><br>
+            <div class = "box-footer">
+                <button type="submit"id="submit" class="btn btn-primary btn-block mb-3"><b>Submit</b></button>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+</body>
+<script type="text/javascript">
+
+$(document).ready(function(){
+$('#snf','#ltrRate').keypress(function(e) {
+var arr = [];
+var kk = e.which;
+
+for (i = 48; i < 50; i++)
+arr.push(i);
+
+if (!(arr.indexOf(kk)>=0))
+e.preventDefault();
+});
+</script>
+</html>

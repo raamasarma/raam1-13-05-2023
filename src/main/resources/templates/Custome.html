@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title></title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+
+ input#custName{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+
+  }
+ input#mobileNo{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#Email{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+input#custAddr1{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#custAddr2{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#custAddr3{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#custPostCode{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+   input#custGst{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+
+.header_bar {
+    position: top;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  background-color: blue;
+    text-align: center;
+    }
+.footer_bar {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: blue;
+   text-align: center;
+}
+
+  </style>
+    <div th:replace="fragments/navbar :: navbar_header"></div>
+    <div th:replace="fragments/navbar :: navbar_menu"></div>
+    <div class="container">
+
+        <div th:replace="fragments/message :: message_html"></div>
+    </div>
+</head>
+<body style="background-color:#fff;">
+<div class ="container-fluid">
+    <div class="card-body">
+        <div class="col">
+<!--            <div class="col-lg-7 col-md-7 col-sm-3 container justify-content-middle card-body">-->
+                <h4 class = "text-middle"> <font color="#000080 ">
+                    <b>Create Customer</b> </font></h4>
+                <h1>
+                    <small th:text="${msg}" ></small>
+                </h1>
+                <hr color="blue">
+                <!--        <form  action="home" method="post"></form>-->
+
+                <form th:action="@{/createCustomer}" th:object = "${Custome}" method="POST">
+                    <div class="row auto-align">
+                        <div class="col">
+                            <label> Customer Name</label>
+                            <input type = "text"  id="custName"  name = "custName"  th:field = "*{custName}" class="form-control"  placeholder="Enter Customer Name"/>
+                        </div>
+                        <div class="col">
+                            <label> Mobile No</label>
+                            <input type="text" name="mobileNo" id="mobileNo"  th:field="*{mobileNo}" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> Email</label>
+                            <input type="text"  name="Email" id="Email" th:field="*{Email}" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label>CustGST</label>
+                            <input  type="text" name="custGst" id="custGst" th:field="*{custGst}"  class="form-control"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row auto-align">
+                        <br>
+                        <div class="col">
+                            <label> Address1</label>
+                            <input  type="text" name="custAddr1" id="custAddr1" th:field="*{custAddr1}"  class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> Address2</label>
+                            <input  type="text" name="custAddr2" id="custAddr2" th:field="*{custAddr2}"  class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label>Address3</label>
+                            <input type="text" name="custAddr3" id="custAddr3"  th:field="*{custAddr3}" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label>Pin Code</label>
+                            <input type="text"  name="custPostCode" id="custPostCode" th:field="*{custPostCode}" class="form-control"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class = "box-footer">
+                        <button id="submit" type="" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+<!--</div>-->
+
+<div th:replace="fragments/navbar :: navbar_footer"></div>
+<!--</div>-->
+</body>
+<script type="text/javascript">
+
+$(document).ready(function(){
+$('#submit').prop('disabled',true);
+});
+$("#name,#mobileNo,#email").change(function(){
+$('#submit').prop('disabled',false);
+});
+
+  $('#mobileNo').keypress(function(e) {
+      var arr = [];
+      var kk = e.which;
+
+      for (i = 48; i < 58; i++)
+          arr.push(i);
+
+      if (!(arr.indexOf(kk)>=0))
+          e.preventDefault();
+
+
+          $("#mobile-num").on("blur", function(){
+        var mobNum = $(this).val();
+        var filter = /^\d*(?:\.\d{1,2})?$/;
+
+          if (filter.test(mobNum)) {
+            if(mobNum.length==10){
+                  alert("valid");
+              $("#mobile-valid").removeClass("hidden");
+              $("#folio-invalid").addClass("hidden");
+             } else {
+                alert('Please put 10  digit mobile number');
+               $("#folio-invalid").removeClass("hidden");
+               $("#mobile-valid").addClass("hidden");
+                return false;
+              }
+            }
+            else {
+              alert('Not a valid number');
+              $("#folio-invalid").removeClass("hidden");
+              $("#mobile-valid").addClass("hidden");
+              return false;
+           }
+  });
+
+
+ });
+
+
+
+
+  </script>
+<script>
+// Document is ready
+$(document).ready(function () {
+  // Validate Username
+  $("#usercheck").hide();
+  let usernameError = true;
+  $("#usernames").keyup(function () {
+    validateUsername();
+  });
+
+  function validateUsername() {
+    let usernameValue = $("#usernames").val();
+    if (usernameValue.length == "") {
+      $("#usercheck").show();
+      usernameError = false;
+      return false;
+    } else if (usernameValue.length < 3 || usernameValue.length > 10) {
+      $("#usercheck").show();
+      $("#usercheck").html("**length of username must be between 3 and 10");
+      usernameError = false;
+      return false;
+    } else {
+      $("#usercheck").hide();
+    }
+  }
+
+  // Validate Email
+  const email = document.getElementById("email");
+  email.addEventListener("blur", () => {
+    let regex = /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
+    let s = email.value;
+    if (regex.test(s)) {
+      email.classList.remove("is-invalid");
+      emailError = true;
+    } else {
+      email.classList.add("is-invalid");
+      emailError = false;
+    }
+  });
+
+  // Validate Password
+  $("#passcheck").hide();
+  let passwordError = true;
+  $("#password").keyup(function () {
+    validatePassword();
+  });
+  function validatePassword() {
+    let passwordValue = $("#password").val();
+    if (passwordValue.length == "") {
+      $("#passcheck").show();
+      passwordError = false;
+      return false;
+    }
+    if (passwordValue.length < 3 || passwordValue.length > 10) {
+      $("#passcheck").show();
+      $("#passcheck").html(
+        "**length of your password must be between 3 and 10"
+      );
+      $("#passcheck").css("color", "red");
+      passwordError = false;
+      return false;
+    } else {
+      $("#passcheck").hide();
+    }
+  }
+
+  // Validate Confirm Password
+  $("#conpasscheck").hide();
+  let confirmPasswordError = true;
+  $("#conpassword").keyup(function () {
+    validateConfirmPassword();
+  });
+  function validateConfirmPassword() {
+    let confirmPasswordValue = $("#conpassword").val();
+    let passwordValue = $("#password").val();
+    if (passwordValue != confirmPasswordValue) {
+      $("#conpasscheck").show();
+      $("#conpasscheck").html("**Password didn't Match");
+      $("#conpasscheck").css("color", "red");
+      confirmPasswordError = false;
+      return false;
+    } else {
+      $("#conpasscheck").hide();
+    }
+  }
+
+  // Submit button
+  $("#submitbtn").click(function () {
+    validateUsername();
+    validatePassword();
+    validateConfirmPassword();
+    validateEmail();
+    if (
+      usernameError == true &&
+      passwordError == true &&
+      confirmPasswordError == true &&
+      emailError == true
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+});
+
+
+
+</script>
+
+</html>

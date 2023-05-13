@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+
+
+ Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: pink;
+}
+
+button {
+       background-color: #4CAF50;
+       width: 100%;
+        color: orange;
+        padding: 15px;
+        margin: 10px 0px;
+        border: none;
+        cursor: pointer;
+         }
+
+         form {
+        border: 1px solid light;
+    }
+
+    .container {
+        padding: 25px;
+        background-color: light;
+    }
+
+
+
+.header_bar {
+    position: top;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  background-color: blue;
+    text-align: center;
+    }
+
+.footer_bar {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: blue;
+   text-align: center;
+}
+
+#form_login {
+    left      : 50%;
+    top       : 50%;
+    position  : absolute;
+    transform : translate(-50%, -50%);
+}
+
+  </style>
+
+</head>
+<body style="background-color: #fff;">
+<div th:replace="fragments/navbar :: navbar_header"></div>
+
+<div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+
+
+    <div class="container">
+        <div th:replace="fragments/message :: message_html"></div>
+    </div>
+
+    <div id="app">
+
+        <div class="login-page">
+
+            <div class="wallpaper-register"></div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10 col-lg-20 col-xl-5 offset-xl-4">
+                        <div v-if="!registerActive" class="card login" v-bind:class="{ error: emptyFields }">
+                            <center> <h2> <font color="#000080 ">
+                                <b>Login Page</b>
+                                <h4>
+                                    <small th:text="${messages}" >Subtitle</small>
+                                </h4>
+                            </font></h2> </center>
+                            <center><p><font color="green">
+                                <b> Please Login Here..!!!</b>
+                            </font></p></center>
+
+                            <form  action="login" method="post">
+
+                                <label for="phone">Phone</label>
+
+                                <input type="text" class="form-control" name="mobile" id="phone" placeholder="phone" maxlength="10" pattern="\d{10}" required title="Enter Phone Number" autocomplete="off">
+
+                                <label for="inputPassword4">Password</label>
+                                <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required title="Enter Password">
+
+                                <br>
+                                <button type="submit"id="submit" class="btn btn-primary btn-block mb-3"><b>Sign in</b></button>
+                                <p>Don't have an account? <a href="/register" @click="registerActive = !registerActive, emptyFields = false">Register</a>
+                                </p>
+                                <p><a href="/changePassword">Change Password</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:replace="fragments/navbar :: navbar_footer"></div>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+$('#submit').prop('disabled',true);
+});
+$("#phone,#inputPassword4").change(function(){
+$('#submit').prop('disabled',false);
+});
+
+
+$('#phone').keypress(function(e) {
+var arr = [];
+var kk = e.which;
+
+for (i = 48; i < 58; i++)
+arr.push(i);
+
+if (!(arr.indexOf(kk)>=0))
+e.preventDefault();
+});
+</script>
+</html>

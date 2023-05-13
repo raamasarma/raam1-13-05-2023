@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title></title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+.header_bar {
+    position: top;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  background-color: blue;
+    text-align: center;
+    }
+
+.footer_bar {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: blue;
+   text-align: center;
+}
+ input#supplierName{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+   input#supAddress1{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#supAddress2{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#supAddress3{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#pinCode{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+   input#supEmail{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+   input#supMobile{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+   input#GST{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#shipAddress1{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#shipAddress2{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#shipAddress3{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#shipMobile{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#shippinCode{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+  input#shipdistance{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:3px;
+  background-colour:#fff;
+  }
+ .inputError{
+  background-color: #f4bfbf;
+  border: 1px solid #d03e3e;
+  color: #d03e3e;
+}
+.inputError::-webkit-input-placeholder{
+  color: #d03e3e;
+}
+
+.errorMessage{
+  background-color: #d03e3e;
+  color: #fff;
+  clear: right;
+  display: none;
+  font-size: 14px;
+  font-weight: bold;
+  height: 75px;
+  letter-spacing: 1px;
+
+  -moz-border-radius: 0px 0px 3px 3px;
+  -webkit-border-radius: 0px 0px 3px 3px;
+  border-radius: 0px 0px 3px 3px;
+}
+.errorMessage p{
+  margin: 0px;
+  padding: 30px 0px 0px 30px;
+  text-align: left;
+}
+
+    </style>
+    <div th:replace="fragments/navbar :: navbar_header"></div>
+    <div th:replace="fragments/navbar :: navbar_menu"></div>
+    <div class="container">
+
+        <div th:replace="fragments/message :: message_html"></div>
+    </div>
+</head>
+<body style="background-color:Blonde;">
+<div class="container">
+    <br>
+    <h4 class = "text-middle"> <font color="#000080 ">
+        <b>Create New Supplier</b> </font></h4>
+    <hr color="blue">
+                <form th:action="@{/supplier}" th:object="${supplier}" method="POST">
+                    <div class="row auto-align">
+                        <div class="col">
+                        <label> Name</label>
+                        <input  type="text" name="supplierName" id="supplierName" th:field="*{supplierName}"  class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> Mobile No</label>
+                            <input type="text" name="supMobile" id="supMobile"  th:field="*{supMobile}" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> Email</label>
+                            <input type="text"  name="supEmail" id="supEmail" th:field="*{supEmail}" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> GST</label>
+                            <input type="text"  name="GST" id="GST" th:field="*{GST}"  class="form-control"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row auto-align">
+                    <br>
+                    <div class="col">
+                        <label> Address1</label>
+                        <input  type="text" name="supAddress1" id="supAddress1" th:field="*{supAddress1}"  class="form-control"/>
+                    </div>
+                        <div class="col">
+                            <label> Address2</label>
+                            <input  type="text" name="supAddress2" id="supAddress2" th:field="*{supAddress2}"  class="form-control"/>
+                        </div>
+                    <div class="col">
+                        <label>Address3</label>
+                        <input type="text" name="supAddress3" id="supAddress3"  th:field="*{supAddress3}" class="form-control"/>
+                    </div>
+                    <div class="col">
+                        <label>Pin Code</label>
+                        <input type="text"  name="pinCode" id="pinCode" th:field="*{pinCode}" class="form-control"/>
+                    </div>
+                </div>
+                    <br>
+                    <h4 class = "text-middle"> <font color="#000080 ">
+                        <b>Shipping Address</b> </font></h4>
+                    <hr>
+                    <div class="row auto-align">
+                        <br>
+                        <div class="col">
+                            <label> ShippAddress1</label>
+                            <input  type="text" name="shipAddress1" id="shipAddress1" th:field="*{shipAddress1}"  class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> ShippAddress2</label>
+                            <input  type="text" name="shipAddress2" id="shipAddress2" th:field="*{shipAddress2}"  class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label> ShippAddress3</label>
+                            <input type="text" name="shipAddress3" id="shipAddress3"  th:field="*{shipAddress3}" class="form-control"/>
+                        </div>
+                        <div class="col">
+                            <label>Shipp MobileNo</label>
+                            <input type="text"  name="shipMobile" id="shipMobile" th:field="*{shipMobile}" class="form-control"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row auto-align">
+                        <div class="col">
+                            <label>Shipp Pin</label>
+                            <input type="text"  name="shippinCode" id="shippinCode" th:field="*{shippinCode}" class="form-control"/>
+                        </div>
+                        <div class="col-9">
+                            <label>Shipp Distance</label>
+                            <input type="text"  name="shipdistance" id="shipdistance" th:field="*{shipdistance}" class="form-control"/>
+                        </div>
+                    </div>
+                    <br>
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+
+                </form>
+</div>
+<div class="errorMessage"></div>
+<div th:replace="fragments/navbar :: navbar_footer"></div>
+</body>
+<script type="text/javascript">
+    $(".formValidation").on("submit", function(e){
+
+  var errorMessage  = $(".errorMessage");
+  var hasError = false;
+
+  $(".inputValidation").each(function(){
+    var $this = $(this);
+
+    if($this.val() == ""){
+      hasError = true;
+      $this.addClass("inputError");
+      errorMessage.html("<p>Error: Please correct errors above</p>");
+      e.preventDefault();
+    }if($this.val() != ""){
+      $this.removeClass("inputError");
+    }else{
+      return true;
+    }
+  }); //Input
+
+  errorMessage.slideDown(700);
+}); //Form .submit
+
+
+
+</script>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+          integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+          integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+          crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title></title>
+  <style>
+    #recDate{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  input#quantity{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+input#fatP{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+input#snfP{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #milkType{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #supplierName{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  }
+   #VehileNo{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  input#fromDate{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  input#toDate{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+table { border: 3px solid black }
+table th { border: 3px solid black }
+table td { border: 3px solid black }
+    </style>
+  <div th:replace="fragments/navbar :: navbar_header"></div>
+  <div th:replace="fragments/navbar :: navbar_menu"></div>
+  <div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+  </div>
+</head>
+<body style="background-color:Blonde;">
+<div class="container">
+  <h4 class = "text-middle"> <font color="#000080 ">
+    <b>View Purchase Order</b> </font></h4>
+
+  <hr color="blue">
+  <form th:action="@{/purchaseViewData}" th:object="${purchase}" method="POST">
+    <div class="row auto-align">
+
+      <div class="col">
+        <label for="supplierName">supplierName</label>
+        <select id="supplierName" class="form-control" name="supplierName">
+          <option> --- Select Supplier Name ---</option>
+          <option th:each="i : ${supplier}" th:value="${i.supplierCode}"><span th:text="${i.supplierName}"></span> - <span
+                  th:text="${i.supplierCode}"></span></option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="fromDate">From Date</label>
+        <input id="fromDate" name="invDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+      </div>
+      <div class="col">
+        <label for="toDate">To Date</label>
+        <input id="toDate" name="recDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+      </div>
+    </div>
+
+    <br>
+    <div class="box-footer">
+      <button id="submit" class="btn btn-primary">Submit</button>
+    </div>
+    <hr>
+    <div id="hide">
+      <div class="container">
+        <table class="css-serial" style="width:100%" id="purchaseTable" border=0>
+          <thead>
+          <tr>
+            <th scope="col">Invoice Date</th>
+            <th scope="col">Invoice NO</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Vehicle No</th>
+            <th scope="col">Milk Type</th>
+            <th scope="col">Qty in KGS</th>
+            <th scope="col">FAT</th>
+            <th scope="col">SNF</th>
+            <th scope="col">TS Rate</th>
+            <th scope="col">Rate/Ltr</th>
+            <th scope="col">Amount </th>
+            <th scope="col">Pay Status</th>
+<!--            <th scope="col">Pay Status</th>-->
+            <th scope="col">Action</th>
+<!--            <th scope="col">Bank Name</th>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each=" lists : ${list}">
+            <td scope="col"><span th:text="${lists.invDate}"></span></td>
+            <td scope="col"><span th:text="${lists.invNo}"></span></td>
+            <td scope="col"><span th:text="${lists.supplier}"></span></td>
+            <td scope="col"><span th:text="${lists.vehNumber}"></span></td>
+            <td scope="col"><span th:text="${lists.milkType}"></span></td>
+            <td scope="col"><span th:text="${lists.quantity}"></span></td>
+            <td scope="col"><span th:text="${lists.fatP}"></span></td>
+            <td scope="col"><span th:text="${lists.snfP}"></span></td>
+            <td scope="col"><span th:text="${lists.tsRate}"></span></td>
+            <td scope="col"><span th:text="${lists.ltrRate}"></span></td>
+            <td scope="col"><span th:text="${lists.amt}"></span></td>
+            <td scope="col"><span th:text="${lists.paymentStatus}"></span></td>
+<!--            <td class="anchor_cell"><a href=th:text="${lists.invNo}>print</a></td>-->
+            <td><a href="<span th:text="${lists.invNo}"></span>">print</a></td>
+          </tr>
+          <tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+
+</div>
+</body>
+<script>
+$(document).ready(function() {
+<!--$("#hide").hide();-->
+});
+$('#submit').click(function() {
+var supplierName=$("#supplierName").val();
+//alert(supplierName);
+var fromDate = $("#fromDate").val();
+//alert(fromDate);
+var toDate = $("#toDate").val();
+alert(toDate);
+$.ajax({
+'async': false,
+ type: 'POST',
+url: '/purchaseViewData',
+        data: {
+                "supplier":supplierName,
+                "invDate": fromDate,
+                "recDate": toDate,
+               "vehicleNo":"",
+               "milkType":"",
+                "quantity":"",
+               "snfP":"",
+               "fatP":"",
+               "tsRate":"",
+               "paymentStatus":"",
+               "bankName":""
+            },
+            success: function(data) {
+   //alert("Order Not Exists");
+//alert("Data Saved Successfully !!!");
+window.location.replace ("/purchaseExcel");
+}
+});
+});
+</script>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title></title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <style>
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+input#vehicleNo{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  }
+  #capacity{
+  width:250px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  }
+  .header_bar {
+    position: top;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  background-color: blue;
+    text-align: center;
+    }
+
+.footer_bar {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: blue;
+   text-align: center;
+}
+    </style>
+<div th:replace="fragments/navbar :: navbar_header"></div>
+<div th:replace="fragments/navbar :: navbar_menu"></div>
+  <div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+  </div>
+</head>
+<body style="background-color: #fff;">
+<div class="container">
+  <br>
+  <h4 class = "text-middle"> <font color="#000080 ">
+    <b>Create Vehicle Details</b> </font></h4>
+  
+  <hr color="blue">
+  <form th:action="@{/vehicle}" th:object="${vehicle}" method="POST">
+    <div class="row auto-align">
+      <div class="col">
+        <label>Vehicle Code</label>
+        <input   type="text"  id="vehCode"  th:field="*{vehCode}"  class="form-control"/>
+      </div>
+      <div class="col">
+        <label>VehicleNo</label>
+        <input   type="text"  id="vehicleNo"  th:field="*{vehicleNo}"  class="form-control"/>
+      </div>
+      <div class="col">
+        <label>Chasis Number</label>
+        <input   type="text"  id="chasisNumber"  th:field="*{chasisNumber}"  class="form-control"/>
+      </div>
+      <div class="col">
+        <label>Owner</label>
+        <input   type="text"  id="owner"  th:field="*{owner}"  class="form-control"/>
+      </div>
+      <div class="col">
+        <label for=" capacity">Capacity</label>
+        <select id=" capacity" class="form-control" name=" capacity" >
+          <option value="9kl">9Kl</option>
+          <option value="15kl">15Kl</option>
+          <option value="20kl">20Kl</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="compartments">Campartments</label>
+        <select id="compartments" class="form-control" name="compartments" >
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+    </div>
+    <div class="row auto-align">
+
+    </div>
+    <br>
+    <div class="box-footer">
+      <button type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+<div th:replace="fragments/navbar :: navbar_footer"></div>
+</body>
+</html>

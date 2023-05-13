@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <style>
+    .row {
+      height: 100%;
+      width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      align-content: space-between;
+      align-items: center;
+    }
+
+    .col {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .col-auto {
+      flex: 0 0 auto;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
+      align-content: space-between;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid black;
+      border-collapse: collapse;
+    }
+
+    th {
+      background-color: lightblue;
+
+    }
+
+    @page {
+      margin: 2px
+    }
+
+    /* .col-10 {
+      width: 100%;
+    }
+    .col-9 {
+      width: 90%;
+    }
+    .col-8 {
+      width: 80%;
+    }
+    .col-7 {
+      width: 70%;
+    }
+    .col-6 {
+      width: 60%;
+    }
+    .col-5 {
+      width: 50%;
+    }
+    .col-4 {
+      width: 40%;
+    }
+    .col-3 {
+      width: 30%;
+    }
+    .col-2 {
+      width: 20%;
+    }
+    .col-1 {
+      width: 10%;
+    } */
+  </style>
+</head>
+
+<body>
+
+  <div class="row" style="text-align: center;">
+    <div class="col-auto  ">
+      <div class="row" style=" display: flex; justify-content: space-between; width: 100%;">
+        <div class="col-auto "
+          style="color: green;font-weight: 600; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+          <h1>L.S. MILK TRADERS</h1>
+        </div>
+        <div class="col-auto "
+          style="color: blue;font-weight: 600; text-align: end; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+          <div class="row">Phone: 99491 24471</div>
+          <div class="row">Email: LSMilkTrades@gmail.com</div>
+        </div>
+      </div>
+      <div class="row"
+        style="color: red; font-weight: 600; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        2-2-1183/1/3 SIDDHARTHA CASTLE SHIVAM ROAD NEW NALLAKUNTA HYDERABAD - 500044
+      </div>
+
+    </div>
+  </div>
+  <hr style="height: 3px; width: 100%; background-color: blue; border-radius: 2.5px;">
+  </hr>
+  <div class="row" style=" display: flex; justify-content: space-between; width: 100%;">
+    <div class="col-auto" style="text-align: start; ">
+      <p>PAN NO : AQXPA6394G</p>
+    </div>
+
+  </div>
+  <h3 style="text-align: center;">ORIGINAL FOR RECEPIENT</h3>
+  <h2 style="text-align: center;">TAX INVOICE</h2>
+  <table class="table" style="width: 100%;">
+    <tr>
+      <th>Customer Name and Billing Address</th>
+      <th style="display: flex; justify-content: space-around;"><span style="text-align: start;">INVOICE NUMBER:
+          F2022110014</span>
+        <span style="text-align: end; ">DATE:10/8/2023</span>
+      </th>
+    </tr>
+    <tr>
+      <td><b>Farmer Dairy Products PVT ltd </b><br></br>
+        JangaReddy Gudem<br></br>
+        <b>West Godavari District. </b>
+      </td>
+      <td>
+        <b>Shipping Address</b><br></br>
+        <b>Farmer Dairy Products PVT ltd </b><br></br>
+        JangaReddy Gudem<br></br>
+        <b>West Godavari District. </b>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Destination : Janga reddy Gudem<br></br>
+        Shipping Mode : Road
+      </td>
+      <td>
+        Ref number : TKt - 2211114<br></br>
+        Ref Date : 12-11-2022
+      </td>
+    </tr>
+  </table>
+  <table style="width: 100%;">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Description</th>
+        <th>Fat</th>
+        <th>SNF</th>
+        <th>Qty</th>
+        <th>Unit</th>
+        <th>Item Rate</th>
+        <th>Item Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="order : ${orders}">
+        <td> <span th:text="${order.sno}"></span> </td>
+        <td> <span th:text="${order.milkType}"></span> <br></br>
+          Rate : <span th:text="${order.tsRate}"></span> LtrTs
+        </td>
+        <td ><span th:text="${order.fat}"></span>%</td>
+        <td><span th:text="${order.snf}"></span>%</td>
+        <td><span th:text="${order.qty}"></span></td>
+        <td>Litre</td>
+        <td><span th:text="${order.ltrRate}"></span></td>
+        <td ><span th:text="${order.amt}"></span></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7">Total</td>
+        <td><span th:text="${ttlamt}"></span></td>
+      </tr>
+    </tfoot>
+  </table>
+  <table style="width: 100%;">
+    <tr>
+      <td>Bill Amount in Words INR <b>Four Lakh Ninety Nine Thousand Six Hundred and Fifty Two </b> only</td>
+      <td> <b>Sub Total</b> : Round Off <br></br>
+        <b>Bill Total : <span th:text="${ttlamt}"></span></b>
+      </td>
+    </tr>
+  </table>
+  <table style="width: 100%;">
+    <tr>
+      <td> <b>
+          <h3>Bank Details : </h3>
+        </b><br></br>
+        Shipping Company : <b>L S MILK TRADERS </b><br></br>
+        Account Number : <b>14600200005255 </b><br></br>
+        Bank Name : <b>Federal Bank </b><br></br>
+        IFSC Code : <b>FDRL0001460 </b><br></br>
+        Branch : <b>patamata branch , VIJAYWADA <br></br></b></td>
+
+    </tr>
+  </table>
+  <table style="width: 100%;">
+    <tr>
+      <td style="border: 0px;"><b>
+          <h3>Declaration : </h3>
+        </b><br></br>We declare that this invoice shows the actual price of the goods described and that all particulars
+        are true and correct
+      </td>
+      <td style="border: 0px;"><b>For L S MILK TRADERS</b><br></br></td>
+    </tr>
+    <tr>
+      <td style="border: 0px; text-align: center;">
+        Composition taxable person, not eligible to collect tax on supplies
+      </td>
+      <td style="border: 0px; text-align: center;">
+        Authorized Signotary
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+</body>
+
+</html>
